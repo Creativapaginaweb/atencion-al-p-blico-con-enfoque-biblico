@@ -6,15 +6,39 @@
     <title>Ponencia INSOPESCA</title>
     <style>
         :root { --primary: #0f172a; --accent: #f97316; --secondary: #38bdf8; }
-        body { background: var(--primary); color: #f1f5f9; font-family: 'Segoe UI', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-        .mppa-header { background: #1e293b; padding: 10px; text-align: center; font-size: 0.65rem; border-bottom: 2px solid var(--accent); color: #94a3b8; }
-        .slides-container { flex: 1; padding: 20px; overflow-y: auto; }
+        
+        /* CORRECCIÓN: Quitamos overflow: hidden y usamos altura dinámica (dvh) */
+        body { 
+            background: var(--primary); 
+            color: #f1f5f9; 
+            font-family: 'Segoe UI', sans-serif; 
+            min-height: 100vh; 
+            min-height: 100dvh; 
+            display: flex; 
+            flex-direction: column; 
+            margin: 0; 
+        }
+
+        .mppa-header { 
+            background: #1e293b; 
+            padding: 10px; 
+            text-align: center; 
+            font-size: 0.65rem; 
+            border-bottom: 2px solid var(--accent); 
+            color: #94a3b8; 
+        }
+
+        .slides-container { 
+            flex: 1; 
+            padding: 20px; 
+            overflow-y: auto; 
+            max-height: calc(100dvh - 130px); /* Ajuste para dejar espacio a los botones */
+        }
+
         .slide { display: none; text-align: center; }
         
-        /* Animación de la diapositiva (Entrada suave) */
         .slide.active { display: block; animation: fadeIn 1.5s ease-out; }
         
-        /* Animación para el contenido dentro de la diapositiva */
         .slide.active h1, .slide.active h2, .slide.active p, .slide.active img, .slide.active .bible {
             animation: slideUpContent 1s ease-out;
         }
@@ -25,31 +49,55 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .bible { font-style: italic; color: var(--secondary); margin: 15px 0; padding: 12px; border-left: 4px solid var(--secondary); background: rgba(56, 189, 248, 0.05); font-size: 0.95rem; line-height: 1.4; }
-        .btn-group { display: flex; padding: 15px; background: #1e293b; gap: 5px; }
+        .bible { 
+            font-style: italic; 
+            color: var(--secondary); 
+            margin: 15px 0; 
+            padding: 12px; 
+            border-left: 4px solid var(--secondary); 
+            background: rgba(56, 189, 248, 0.05); 
+            font-size: 0.95rem; 
+            line-height: 1.4; 
+        }
+
+        /* CORRECCIÓN: Los botones ahora son pegajosos al fondo para que no se entierren */
+        .btn-group { 
+            display: flex; 
+            padding: 15px; 
+            background: #1e293b; 
+            gap: 5px; 
+            position: sticky; 
+            bottom: 0; 
+            z-index: 10;
+            border-top: 1px solid #334155;
+        }
+
         button { flex: 1; padding: 12px; border: none; border-radius: 5px; background: #334155; color: white; font-weight: bold; cursor: pointer; }
         .next { background: var(--accent); }
         
-        #passwordPanel { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.95); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; }
+        #passwordPanel { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(15,23,42,0.95); 
+            display: none; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 100; 
+        }
+
         input { padding: 15px; width: 80%; border-radius: 5px; border: none; margin-bottom: 10px; text-align: center; text-transform: none; }
-
-        /* 1. Limitamos el contenedor para que respete el espacio de los botones */
-.slides-container { 
-    flex: 1; 
-    padding: 20px; 
-    overflow-y: auto; 
-    /* Esto garantiza que el contenido nunca sea más grande que el espacio disponible */
-    max-height: calc(100vh - 120px); 
-}
-
-/* 2. Ajustamos todas las imágenes para que no desborden nunca */
-img { 
-    width: 100%; 
-    max-height: 40vh; /* La imagen nunca ocupará más del 40% de la pantalla */
-    object-fit: contain; /* Mantiene la proporción sin deformar */
-    border-radius: 10px; 
-    margin: 10px 0; 
-}
+        
+        img { 
+            width: 100%; 
+            max-height: 40vh; 
+            object-fit: contain; 
+            border-radius: 10px; 
+            margin: 10px 0; 
+        }
 
     </style>
 </head>
@@ -61,34 +109,34 @@ img {
     <div class="slide active">
         <h1>Atención al Público</h1>
         <p>Ponentes:<br>🧑‍🏫 Kelly Rodríguez<br>🧑‍🏫 Emmanuel Manosalva</p>
-        <img src="logo.png" style="width: 100%; border-radius: 10px; margin: 10px 0;">
+        <img src="logo.png">
         <p>Transformando la gestión con principios bíblicos.</p>
     </div>
 
     <div class="slide">
         <h2>1. El Servidor Público</h2>
-        <img src="servicio.jpg" style="width: 100%; border-radius: 10px; margin: 10px 0;">
+        <img src="servicio.jpg">
         <p>Nuestra labor no es una imposición, es un ministerio de ayuda. Servir es reflejar la humildad de Jesús.</p>
         <div class="bible">"Como el Hijo del Hombre no vino para ser servido, sino para servir, y para dar su vida en rescate por muchos." (Mateo 20:28)</div>
     </div>
 
     <div class="slide">
         <h2>2. La Respuesta que Aplaca</h2>
-        <img src="comunicación.jpg" style="width: 100%; border-radius: 10px; margin: 10px 0;">
+        <img src="comunicación.jpg">
         <p>El autocontrol es clave. Responder con suavidad, incluso ante la queja del usuario, mantiene la paz en la inspectoría.</p>
         <div class="bible">"La blanda respuesta quita la ira; Mas la palabra áspera hace subir el furor." (Proverbios 15:1)</div>
     </div>
 
     <div class="slide">
         <h2>3. La Segunda Milla</h2>
-        <img src="ayuda.png" style="width: 100%; border-radius: 10px; margin: 10px 0;">
+        <img src="ayuda.png">
         <p>La excelencia consiste en orientar con paciencia, facilitando el proceso del pescador más allá de lo mínimo requerido.</p>
         <div class="bible">"y a cualquiera que te obligue a llevar carga por una milla, ve con él dos." (Mateo 5:41)</div>
     </div>
 
     <div class="slide">
         <h2>4. Orden y Paz Social</h2>
-        <img src="orden.jpg" style="width: 100%; border-radius: 10px; margin: 10px 0;">
+        <img src="orden.jpg">
         <p>La organización de nuestra inspectoría es la base de la estabilidad económica de nuestra comunidad pesquera.</p>
         <div class="bible">"pero hágase todo decentemente y con orden." (1 Corintios 14:40)</div>
     </div>
@@ -101,7 +149,7 @@ img {
             <li>Explicar con paciencia.</li>
             <li>Actuar con integridad.</li>
         </ul>
-        <img src="reto.jpg" style="width: 100%; border-radius: 10px; margin: 10px 0;">
+        <img src="reto.jpg">
     </div>
 </div>
 
@@ -123,7 +171,6 @@ img {
 <script>
     let current = 0;
     const slides = document.querySelectorAll('.slide');
-    // Ahora puedes usar mayúsculas o minúsculas, el código lo normalizará
     const keys = { 0: "Iniciar", 1: "Servicio", 2: "Blanda", 3: "Milla", 4: "Orden" };
 
     function nav(action) {
@@ -136,7 +183,6 @@ img {
     }
 
     function checkPass() {
-        // Se normaliza tanto la entrada como la clave guardada a minúsculas para comparar
         let input = document.getElementById('passInput').value.toLowerCase();
         let correctKey = keys[current].toLowerCase();
         
